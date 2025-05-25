@@ -8,7 +8,7 @@
     name: [nginx, git, curl, ufw, unzip]
     state: present
 
-- include_tasks: uv.yml
+# - include_tasks: uv.yml
 
 - include_tasks: hugo.yml
   

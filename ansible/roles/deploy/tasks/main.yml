@@ -7,7 +7,8 @@
     track_submodules: yes 
 
 - name: Build Hugo site
-  command: /usr/local/bin/hugo
+  shell: |
+    HUGO_MODULE_MODE=_vendor /usr/local/bin/hugo
   args:
     chdir: ~/hugo-site/test-site
 
