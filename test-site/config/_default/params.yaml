@@ -33,7 +33,7 @@ admin:
 
   # Auth
   auth:
-    netlify_identity: false # Add Netlify identity
+    netlify_identity: true # Add Netlify identity
 
   preview: false
 

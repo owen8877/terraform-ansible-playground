@@ -11,5 +11,4 @@
     HUGO_MODULE_MODE=_vendor /usr/local/bin/hugo
   args:
     chdir: ~/hugo-site/test-site
-
-- include_tasks: nginx.yml
+  notify: Restart nginx
