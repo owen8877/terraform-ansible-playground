@@ -3,6 +3,7 @@ admin:
   branch: master
   git: github
   repo: owen8877/terraform-ansible-playground
+  base_url: https://sveltia-cms-auth.xdroid.workers.dev/
   config:
     id: false # set true to use ID for dir/name files and relation
       
