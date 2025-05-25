@@ -1,12 +1,12 @@
-# - name: Clone Hugo repo
-#   git:
-#     repo: https://github.com/owen8877/terraform-ansible-playground.git
-#     dest: ~/hugo-site
-#     update: yes
+- name: Clone Hugo repo
+  git:
+    repo: https://github.com/owen8877/terraform-ansible-playground.git
+    dest: ~/hugo-site
+    update: yes
 
-# - name: Build Hugo site
-#   command: /usr/local/bin/hugo
-#   args:
-#     chdir: ~/hugo-site/test-site
+- name: Build Hugo site
+  command: /usr/local/bin/hugo
+  args:
+    chdir: ~/hugo-site/test-site
 
 - include_tasks: nginx.yml
