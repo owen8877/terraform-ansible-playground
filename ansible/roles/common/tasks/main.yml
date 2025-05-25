@@ -1,24 +1,24 @@
-# - name: Ensure apt packages are updated
-#   become: true
-#   apt: update_cache=yes cache_valid_time=3600
+- name: Ensure apt packages are updated
+  become: true
+  apt: update_cache=yes cache_valid_time=3600
 
-# - name: Install required base packages
-#   become: true
-#   apt:
-#     name: [nginx, git, curl, ufw, unzip]
-#     state: present
+- name: Install required base packages
+  become: true
+  apt:
+    name: [nginx, git, curl, ufw, unzip]
+    state: present
 
 # - include_tasks: uv.yml
 
-# - include_tasks: hugo.yml
+- include_tasks: hugo.yml
   
-# - name: Enable UFW and open ports
-#   become: true
-#   community.general.ufw:
-#     rule: allow
-#     port: "{{ item }}"
-#     proto: tcp
-#   loop: [22, 80, 443, 1337]
+- name: Enable UFW and open ports
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  loop: [22, 80, 443, 1337]
 
 - include_tasks: nginx.yml
 

@@ -1,11 +1,11 @@
-# - name: Install Certbot and Nginx plugin
-#   become: true
-#   apt:
-#     name:
-#       - certbot
-#       - python3-certbot-nginx
-#     state: present
-#     update_cache: yes
+- name: Install Certbot and Nginx plugin
+  become: true
+  apt:
+    name:
+      - certbot
+      - python3-certbot-nginx
+    state: present
+    update_cache: yes
 
 - name: Obtain SSL certificates and configure Nginx
   become: true
@@ -17,7 +17,7 @@
     --agree-tos
     --email owen+test@xdrd.me
     --redirect
-    
+
 - name: Reload nginx
   become: true
   service:

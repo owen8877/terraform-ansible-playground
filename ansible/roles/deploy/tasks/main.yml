@@ -11,4 +11,9 @@
     HUGO_MODULE_MODE=_vendor /usr/local/bin/hugo
   args:
     chdir: ~/hugo-site/test-site
-  notify: Restart nginx
+
+- name: Reload nginx
+  become: yes
+  service:
+    name: nginx
+    state: reloaded

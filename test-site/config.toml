@@ -1,4 +1,4 @@
 theme = "mainroad"
-baseURL = "http://test.xdrd.me/test-site/"
+baseURL = "http://test.xdrd.me/"
 languageCode = "en-us"
 title = "My Startup Site"
