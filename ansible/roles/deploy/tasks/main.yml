@@ -3,6 +3,8 @@
     repo: https://github.com/owen8877/terraform-ansible-playground.git
     dest: ~/hugo-site
     update: yes
+    recursive: yes
+    track_submodules: yes 
 
 - name: Build Hugo site
   command: /usr/local/bin/hugo
