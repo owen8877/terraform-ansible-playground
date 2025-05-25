@@ -1,7 +1,7 @@
 admin:
   cms: sveltiacms # All CMS available https://www.hugolify.io/docs/cms/admin/cms/
-  branch: master
   git: github
+  branch: master
   repo: owen8877/terraform-ansible-playground
   base_url: https://sveltia-cms-auth.xdroid.workers.dev/
   config:
@@ -34,7 +34,7 @@ admin:
 
   # Auth
   auth:
-    netlify_identity: true # Add Netlify identity
+    netlify_identity: false # Add Netlify identity
 
   preview: false
 

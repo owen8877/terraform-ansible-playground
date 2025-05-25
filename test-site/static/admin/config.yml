@@ -1,6 +1,7 @@
 backend:
   name: github
   repo: owen8877/terraform-ansible-playground
+  base_url: https://sveltia-cms-auth.xdroid.workers.dev/
 
 media_folder: "static/uploads"
 public_folder: "/uploads"
