@@ -1,0 +1,19 @@
+- name: Install UV
+  shell: "curl -LsSf https://astral.sh/uv/install.sh | sh"
+
+# - name: Refresh shell
+#   shell: "source $HOME/.local/bin/env"
+
+- name: Verify UV is installed
+  ansible.builtin.command: uv --version
+  register: uv_version
+  changed_when: false
+
+- name: Show UV version
+  ansible.builtin.debug:
+    var: uv_version.stdout
+
+- name: Install requests to a virtualenv
+  moreati.uv.pip:
+    name: requests
+    virtualenv: ~/hugo-strapi

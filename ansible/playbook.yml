@@ -1,0 +1,10 @@
+- hosts: web
+  # become: true
+  roles:
+    - common
+    # - nginx
+    # - strapi
+    # - hugo
+    # - deploy
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"

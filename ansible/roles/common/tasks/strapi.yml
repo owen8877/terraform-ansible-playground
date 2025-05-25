@@ -1,0 +1,62 @@
+# - name: Install Node.js and yarn
+#   become: true
+#   shell: |
+#     curl -sL https://deb.nodesource.com/setup_18.x | bash -
+#     apt-get install -y nodejs
+#     npm install -g yarn
+
+# - name: Create Strapi project directory
+#   become: true
+#   file:
+#     path: /opt/strapi
+#     state: directory
+
+- name: Install Strapi (Quickstart for SQLite)
+  become: true
+  shell: |
+    npx create-strapi-app my-strapi --quickstart --no-run
+  args:
+    chdir: /opt/strapi
+  environment:
+    CI: "true"  # auto-skip prompts
+
+- name: Create systemd service file for Strapi
+  become: true
+  copy:
+    dest: /etc/systemd/system/strapi.service
+    content: |
+      [Unit]
+      Description=Strapi Headless CMS
+      After=network.target
+
+      [Service]
+      Type=simple
+      User={{ ansible_user }}
+      WorkingDirectory=/opt/strapi/my-strapi
+      ExecStart=/usr/bin/yarn develop
+      Restart=on-failure
+      Environment=NODE_ENV=production
+      Environment=PORT=1337
+
+      [Install]
+      WantedBy=multi-user.target
+  notify: Restart strapi
+
+- name: Reload systemd to apply new service
+  become: true
+  systemd:
+    daemon_reload: yes
+
+- name: Enable and start Strapi service
+  become: true
+  systemd:
+    name: strapi.service
+    state: started
+    enabled: yes
+
+- name: Copy sync script to server
+  become: true
+  copy:
+    src: sync_from_strapi.py
+    dest: /usr/local/bin/sync_from_strapi.py
+    mode: '0755'

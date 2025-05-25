@@ -5,4 +5,4 @@ machine_type    = "e2-micro"
 image           = "debian-cloud/debian-12-bookworm-v20250513"
 disk_size_gb    = 30
 ssh_user        = "tfuser"
-public_key_path = "~/.ssh/id_rsa.pub"
+public_key_path = "~/.ssh/tf-ansible.pub"

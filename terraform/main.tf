@@ -36,6 +36,8 @@ resource "google_compute_instance" "vm_instance" {
     enable-osconfig = "TRUE"
     ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
   }
+
+  tags = ["ssh-enabled", "allow-all-ingress"]
 }
 
 resource "google_compute_subnetwork" "dual_stack_subnet" {
@@ -53,4 +55,33 @@ resource "google_compute_network" "custom_network" {
   auto_create_subnetworks = false
   routing_mode            = "REGIONAL"
   enable_ula_internal_ipv6 = true
+}
+
+resource "google_compute_firewall" "fw1" {
+  name    = "fw1"
+  network = google_compute_network.custom_network.id
+  priority = 1000
+  direction = "INGRESS"
+
+  allow {
+    protocol = "all"
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["allow-all-ingress"]
+}
+
+resource "google_compute_firewall" "ssh" {
+  name    = "allow-ssh"
+  network = google_compute_network.custom_network.id
+  priority = 65534
+  direction = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["ssh-enabled"]
 }

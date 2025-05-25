@@ -1,0 +1,11 @@
+- name: Restart nginx
+  become: yes
+  service:
+    name: nginx
+    state: restarted
+
+- name: Restart strapi
+  become: true
+  systemd:
+    name: strapi.service
+    state: restarted
