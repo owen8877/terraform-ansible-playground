@@ -1,31 +1,30 @@
 - name: Install NGINX
+  become: true
   apt: name=nginx state=present
 
 - name: Copy NGINX config
+  become: true
   template:
     src: hugo.conf.j2
     dest: /etc/nginx/sites-available/hugo
   notify: Restart nginx
 
 - name: Enable NGINX site
+  become: true
   file:
     src: /etc/nginx/sites-available/hugo
     dest: /etc/nginx/sites-enabled/hugo
     state: link
 
 - name: Remove default site
+  become: true
   file:
     path: /etc/nginx/sites-enabled/default
     state: absent
 
 - name: Ensure NGINX is running
+  become: true
   service:
     name: nginx
     state: started
     enabled: yes
-
-handlers:
-  - name: Restart nginx
-    service:
-      name: nginx
-      state: restarted

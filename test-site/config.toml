@@ -1,4 +1,4 @@
-theme = "ananke"
+theme = "mainroad"
 baseURL = "http://test.xdrd.me/test-site/"
 languageCode = "en-us"
 title = "My Startup Site"

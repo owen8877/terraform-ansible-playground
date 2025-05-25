@@ -1,18 +1,12 @@
+# - name: Clone Hugo repo
+#   git:
+#     repo: https://github.com/owen8877/terraform-ansible-playground.git
+#     dest: ~/hugo-site
+#     update: yes
 
-- name: Clone Hugo repo
-  git:
-    repo: https://github.com/owen8877/terraform-ansible-playground.git
-    dest: /var/www/hugo-site
-    update: yes
+# - name: Build Hugo site
+#   command: /usr/local/bin/hugo
+#   args:
+#     chdir: ~/hugo-site/test-site
 
-- name: Build Hugo site
-  command: /usr/local/bin/hugo
-  args:
-    chdir: /var/www/hugo-site/test-site
-
-
-handlers:
-  - name: Restart nginx
-    service:
-      name: nginx
-      state: restarted
+- include_tasks: nginx.yml
