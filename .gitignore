@@ -1,0 +1,55 @@
+# ---- Hugo Build Output ----
+public/
+resources/
+
+# ---- Hugo Specific Files ----
+.DS_Store
+hugo_stats.json
+.hugo_build.lock
+
+# ---- Ansible ----
+# Ignore secrets, SSH keys, and compiled files
+*.retry
+*.log
+*.tar.gz
+*.bak
+*.swp
+.vagrant/
+*.vault_pass
+*.pem
+*.key
+inventory/*_private*
+inventory/*_key*
+
+# ---- Editor/OS Artifacts ----
+*.swp
+*~
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ---- Node Modules (if you use Netlify CMS locally with npm) ----
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# ---- Git Submodules (optional) ----
+themes/
+!themes/*.git
+
+# ---- Terraform ----
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# ---- Ignore local admin previews ----
+admin/config.yml.lock
+
+# ---- Ignore static CMS uploads (if deployed elsewhere) ----
+static/uploads/
+
+# ---- GCP ----
+secrets
