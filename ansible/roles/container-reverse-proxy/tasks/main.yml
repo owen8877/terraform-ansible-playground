@@ -1,0 +1,43 @@
+- name: Extract sub_domain from inventory_hostname
+  set_fact:
+    domain_base: "{{ inventory_hostname }}"
+    my_config: "{{ lookup('file', role_path + '/files/ansible.yml') | from_yaml }}"
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Create reverse proxy config
+  template:
+    src: reverse_proxy.vhost.j2
+    dest: "/etc/nginx/sites-available/{{ docker_project_name }}.vhost"
+    mode: '0644'
+
+- name: Enable nginx site
+  file:
+    src: "/etc/nginx/sites-available/{{ docker_project_name }}.vhost"
+    dest: "/etc/nginx/sites-enabled/{{ docker_project_name }}.vhost"
+    state: link
+    force: yes
+  
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded
+
+- name: Obtain SSL certificates and configure Nginx
+  command: >
+    certbot --nginx
+    --nginx-ctl /usr/sbin/nginx
+    -d '{{ docker_project_name }}.{{ domain_base }}'
+    --non-interactive
+    --agree-tos
+    --email '{{ my_config.certbot_email }}'
+    --redirect
+
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded

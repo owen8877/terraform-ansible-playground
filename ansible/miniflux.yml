@@ -1,0 +1,12 @@
+- hosts: web
+  become: true
+  vars:
+    docker_project_name: miniflux
+    docker_project_internal_port: 8483
+  roles:
+    - container-deploy
+    - container-reverse-proxy
+    - container-backup
+    - container-start
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"

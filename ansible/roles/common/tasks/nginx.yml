@@ -1,35 +1,33 @@
-- name: Install NGINX
-  become: true
-  apt: name=nginx state=present
-
-- name: Copy NGINX config
-  become: true
-  template:
-    src: hugo.conf.j2
-    dest: /etc/nginx/sites-available/hugo
-
-- name: Reload nginx
-  become: yes
-  service:
-    name: nginx
-    state: reloaded
-
-- name: Enable NGINX site
-  become: true
-  file:
-    src: /etc/nginx/sites-available/hugo
-    dest: /etc/nginx/sites-enabled/hugo
-    state: link
-
-- name: Remove default site
-  become: true
-  file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-
-- name: Ensure NGINX is running
-  become: true
+- name: Ensure nginx is running
   service:
     name: nginx
     state: started
     enabled: yes
+
+- name: Remove default site
+  block:
+    - name: remove file
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+    - name: reload nginx
+      service:
+        name: nginx
+        state: reloaded
+
+- name: Install bot blocker
+  block:
+    - name: download
+      shell: |
+        curl -sL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/install-ngxblocker -o /usr/local/sbin/install-ngxblocker
+    - name: chmod
+      shell: |
+        chmod +x /usr/local/sbin/install-ngxblocker
+    - name: install
+      shell: |
+        /usr/local/sbin/install-ngxblocker -x
+    # - name: setup
+    #   shell: |
+    #     yes | /usr/local/sbin/setup-ngxblocker -x
+
+

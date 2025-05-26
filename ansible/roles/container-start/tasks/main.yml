@@ -1,0 +1,4 @@
+- name: Start docker compose project
+  command: docker compose -f /home/{{ ansible_user }}/containers/{{ docker_project_name }}/compose.yaml up -d
+  args:
+    chdir: "/home/{{ ansible_user }}/containers/{{ docker_project_name }}"

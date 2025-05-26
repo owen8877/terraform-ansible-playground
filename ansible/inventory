@@ -1,5 +1,5 @@
 [web]
-test.xdrd.me
+rich.xdrd.me
 
 [web:vars]
 ansible_user=tfuser

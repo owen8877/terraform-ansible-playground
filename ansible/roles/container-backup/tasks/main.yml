@@ -1,0 +1,20 @@
+- name: Install systemd service unit
+  template:
+    src: docker-backup.service.j2
+    dest: "/etc/systemd/system/docker-backup-{{ docker_project_name }}.service"
+    mode: '0644'
+
+- name: Install systemd timer unit
+  template:
+    src: docker-backup.timer.j2
+    dest: "/etc/systemd/system/docker-backup-{{ docker_project_name }}.timer"
+    mode: '0644'
+
+- name: Reload systemd daemon
+  command: systemctl daemon-reload
+
+- name: Enable and start backup timer
+  systemd:
+    name: "docker-backup-{{ docker_project_name }}.timer"
+    enabled: true
+    state: started

@@ -53,3 +53,9 @@ static/uploads/
 
 # ---- GCP ----
 secrets
+*.dup
+test2-site
+docker
+*.backup
+*test
+test_hugo_auto_deploy

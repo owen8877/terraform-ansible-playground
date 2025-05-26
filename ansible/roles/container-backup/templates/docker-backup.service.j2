@@ -1,0 +1,14 @@
+[Unit]
+Description=Backup Docker volume for project {{ docker_project_name }}
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c ' \
+  BASE="/home/{{ ansible_user }}/containers/{{ docker_project_name }}"; \
+  TIMESTAMP=$(date +%%Y%%m%%dT%%H%%M%%S); \
+  BACKUP="$BASE/backup"; \
+  DB="$BASE/database"; \
+  mkdir -p "$BACKUP"; \
+  tar -czf "$BACKUP/{{ docker_project_name }}_$TIMESTAMP.tar.gz" -C "$DB" .; \
+  ls -tp "$BACKUP"/*.tar.gz | grep -v "/$" | tail -n +6 | xargs -r rm -- \
+'

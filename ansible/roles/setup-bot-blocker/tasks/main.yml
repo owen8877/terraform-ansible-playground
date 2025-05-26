@@ -1,0 +1,10 @@
+- name: Setup bot blocker
+  block:
+    - name: setup
+      shell: |
+        yes | /usr/local/sbin/setup-ngxblocker -x
+  
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded

@@ -1,0 +1,4 @@
+```
+terraform init
+terraform apply -var-file=../secrets/cloudflare_dns.json
+```

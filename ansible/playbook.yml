@@ -1,6 +1,7 @@
 - hosts: web
+  become: true
   roles:
-    # - common
-    - deploy
+    - common
+    - setup-bot-blocker
   environment:
     PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
